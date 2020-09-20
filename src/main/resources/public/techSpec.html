@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <title>Technical specification</title>
+</head>
+<p>
+<h1>Welcome to Technical specification generator!</h1>
+
+<button id="fillData">Заполнить поля</button>
+<button id="performPdf">Сформировать моё техзадание</button>
+
+
+<p>Напишите название вашей организации</p>
+<input type="text" id="company-name" class="data company-name" placeholder="Студия красоты" size="40">
+
+<p>Напишите нужный размер макета</p>
+<input type="text" id="maket-size" class="data maket-size" placeholder="240x400px" size="40">
+
+<h3>Ориентация макета</h3>
+<p><input type="radio" id="hor" name="orientation" value="horizontal">Горизонтальный</p>
+<p><input type="radio" id="vert" name="orientation" value="vertical">Вертикальный</p>
+
+<h3>Какую задачу должен решить макет</h3>
+<p>Информационная или промо задача</p>
+<textarea rows="4" cols="50" id="info-task" class="data info-task" placeholder="Оповестить клиентов о проведении акции"></textarea>
+
+<h3>На какой площадке будет размещение макета</h3>
+<textarea rows="4" cols="50" id="platform" class="data platform" placeholder="Слайдер на сайте компании"></textarea>
+
+<h3>Дедлайн</h3>
+<p>Время сдачи макета (время сдачи на согласование)</p>
+<input type="date" id="deadline">
+
+<h3>Требуется ли кнопка</h3>
+<p><input type="radio" id="buttonrequired" name="btnrequirement" value="needBtn">Да</p>
+<p><input type="radio" name="btnrequirement" value="dontNeedBtn">Нет</p>
+
+<h3>Что пишем на кнопке</h3>
+<input type="text" id="button-text" class="data button-text" placeholder="Например: Смотреть или Узнать больше" size="40">
+
+<h3>Самый главный текст на макете</h3>
+<p>Заголовок или рекламный слоган</p>
+<textarea rows="4" cols="50" id="slogan" class="data slogan"></textarea>
+
+<h3>Второстепенный текст на макете</h3>
+<p>Например описание акции</p>
+<textarea rows="4" cols="50" id="description" class="data description"></textarea>
+
+<h3>Какие контакты нужно разместить на макете</h3>
+<p>Телефон, почта, сайт, соцсети</p>
+<textarea rows="4" cols="50" id="contacts" class="data contacts"></textarea>
+
+<h3>Исходные материалы</h3>
+<p>Изображения, файлы которые вы предоставите для работы</p>
+<p><input type="checkbox" id="vector-logo" name="a">Логотип в векторном формате</p>
+<p><input type="checkbox" name="a">Логотип картинкой</p>
+<p><input type="checkbox" name="a">Фотографии</p>
+<p><input type="checkbox" id="brandbook" name="a">Брендбук</p>
+<p><input type="checkbox" name="a">Иллюстрации</p>
+<p><input type="checkbox" name="a">Фирменные шрифты</p>
+
+<h3>Вы подготовили примеры дизайна которые нравятся</h3>
+<p>Например доска на pinterest.com</p>
+<p><input type="radio" id="haveExample" name="example" value="yes">Да, я подобрал</p>
+<p><input type="radio" name="example" value="noButReady">Нет, но готов подготовить</p>
+<p><input type="radio" name="example" value="no">Нет</p>
+
+<!--<button id="performPdf">Сформировать моё техзадание</button>-->
+
+<script type="text/javascript" src="/js/perform.js"></script>
+
+</body>
+</html>
