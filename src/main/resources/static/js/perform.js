@@ -1,5 +1,4 @@
 $("#fillData").on("click", function(){
-console.log('fillData invoked');
 fillData();
 })
 
@@ -38,28 +37,22 @@ return today;
 $("#performPdf").on("click", function(){
 
 var myValues = $(".data").val()
-//console.log(myValues)
 
 var data = getJsonData()
 var json = JSON.stringify(data);
 
 sendJson(json);
 
-//console.log(a);
-
 });
-
-//data: json,
- // dataType: "json",
 
 function sendJson(json) {
 
 $.ajax({
 url: "/pdf",
 type: "POST",
+data: json,
 contentType: "application/json",
-dataType: 'json',
-success: function () {
+success: function (data) {
                alert('Success');
             },
 error: function (e) {
@@ -68,7 +61,6 @@ error: function (e) {
             alert('Error sending data to server');
             }
 });
-
 }
 
 function getJsonData() {
@@ -82,21 +74,6 @@ var slogan = $(".slogan").val();
 var description = $(".description").val();
 var contacts = $(".contacts").val();
 
-var sample = "sample";
-
-/*
-var stringData = '{' +
-                 '"company":"' + companyName + '",' +
-                 '"maket":"' + maketSize + '",' +
-                 '"info":"' + infoTask + '",' +
-                 '"platform":"' + platform + '",' +
-                 '"buttonText":"' + buttonText + '",' +
-                 '"slogan":"' + slogan + '",' +
-                 '"description":"' + description + '",' +
-                 '"contacts":"' + contacts + '"' +
-                 '}';
-*/
-
 var stringData = {"company": companyName,
                   "maket": maketSize,
                   "info": infoTask,
@@ -105,9 +82,6 @@ var stringData = {"company": companyName,
                   "slogan": slogan,
                   "description": description,
                   "contacts": contacts};
-
-//var stringData = '{"company":"Nexign"}';
-
 
 return stringData;
 }
