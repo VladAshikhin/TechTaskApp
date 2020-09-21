@@ -3,35 +3,52 @@ package com.app.objects;
 public class Task {
 
     private String company;
-    private String maket;
+    private String maketSize;
+    //maketOrientation
     private String info;
     private String platform;
+    //private DateTime deadline;
+    //private boolean buttonRequired;
     private String buttonText;
-    private String slogan;
-    private String description;
+    private String primaryMaketText;
+    private String secondaryMaketText;
+    //filesPrepared
+    // examplesReady
     private String contacts;
 
     @Override
     public String toString() {
         return "Task{" +
                 "company='" + company + '\'' +
-                ", maket='" + maket + '\'' +
+                ", maket='" + maketSize + '\'' +
                 ", info='" + info + '\'' +
                 ", platform='" + platform + '\'' +
                 ", buttonText='" + buttonText + '\'' +
-                ", slogan='" + slogan + '\'' +
-                ", description='" + description + '\'' +
+                ", slogan='" + primaryMaketText + '\'' +
+                ", description='" + secondaryMaketText + '\'' +
                 ", contacts='" + contacts + '\'' +
                 '}';
     }
 
+    public Task(String company, String maketSize, String info, String platform, String buttonText, String primaryMaketText, String secondaryMaketText, String contacts) {
+        this.company = company;
+        this.maketSize = maketSize;
+        this.info = info;
+        this.platform = platform;
+        this.buttonText = buttonText;
+        this.primaryMaketText = primaryMaketText;
+        this.secondaryMaketText = secondaryMaketText;
+        this.contacts = contacts;
+    }
+
+    public Task() {}
 
     public String getCompany() {
         return company;
     }
 
-    public String getMaket() {
-        return maket;
+    public String getMaketSize() {
+        return maketSize;
     }
 
     public String getInfo() {
@@ -46,12 +63,12 @@ public class Task {
         return buttonText;
     }
 
-    public String getSlogan() {
-        return slogan;
+    public String getPrimaryMaketText() {
+        return primaryMaketText;
     }
 
-    public String getDescription() {
-        return description;
+    public String getSecondaryMaketText() {
+        return secondaryMaketText;
     }
 
     public String getContacts() {

@@ -1,64 +1,51 @@
-import com.app.objects.Player;
 import com.app.objects.Task;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+
+import java.io.IOException;
 
 public class MapperTest {
 
     public static void main(String[] args) {
 
-        Task task = taskMapper();
-
-        System.out.println(task.getCompany());
-        System.out.println(task.getButtonText());
-
-//        Player player = playerMapper();
-//        System.out.println(player.getName() + " " + player.getProfession());
+        createPdf();
 
     }
 
-    public static Task taskMapper() {
-        String json = "{" +
-                "\"company\":\"Ulmart\", " +
-                "\"maket\":\"200x400px\", " +
-                "\"info\":\"Information\", " +
-                "\"platform\":\"New Platform\", " +
-                "\"buttonText\":\"Submit\", " +
-                "\"slogan\":\"Never give up!\", " +
-                "\"description\":\"It's all for fun\", " +
-                "\"contacts\":\"911\"" +
-                "}";
-
-        //String company = "{\"name\":\"comp\"}";
-
-        //System.out.println(json);
-        ObjectMapper mapper = new ObjectMapper();
-
-        Task task = new Task();
+    public static void createPdf() {
+        PDDocument document = new PDDocument();
+        PDPage page = new PDPage();
+        document.addPage(page);
 
         try {
-          /*  Map<String, String> data = mapper.readValue(json, Map.class);
-            System.out.println(data);
-            System.out.println(data.get("platform"));*/
+            PDPageContentStream content = new PDPageContentStream(document, page);
+            content.setFont(PDType1Font.COURIER, 14);
+            content.beginText();
+            content.newLineAtOffset(25, 700);
+            content.setLeading(14.5f);
 
-            task = mapper.readValue(json, Task.class);
-        } catch (Exception e) {
+            content.showText("You tech task content:");
+            content.newLine();
+
+            content.showText("World");
+
+
+            content.endText();
+            content.close();
+
+            document.save("test.pdf");
+            document.close();
+
+            System.out.println("Document created.");
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        return task;
     }
 
-    public static Player playerMapper() {
-        String json = "{\"name\":\"Patrick\", \"profession\":\"Plumber\"}";
-        ObjectMapper mapper = new ObjectMapper();
-        Player player = new Player();
-
-        try{
-            player = mapper.readValue(json, Player.class);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return player;
+    public static Task getSampleTask() {
+        return null;//new Task("Ulmart", "200x400", );
     }
 
 }

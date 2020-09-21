@@ -2,27 +2,26 @@ package com.app.controller;
 
 
 import com.app.objects.Task;
-import com.app.service.PerformTaskService;
+import com.app.service.PerformPdfService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-//import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-//@org.springframework.web.bind.annotation.RestController
 public class WebController {
 
     @Autowired
-    PerformTaskService service;
+    PerformPdfService service;
 
     // Using @RestController without @ResponseBody is the same as
     // using @Controller with @ResponseBody
 
-    //@RequestMapping(value = "/", method = RequestMethod.GET)
     @ResponseBody
     public String welcome() {
         return "index";

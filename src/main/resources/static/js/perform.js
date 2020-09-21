@@ -75,12 +75,12 @@ var description = $(".description").val();
 var contacts = $(".contacts").val();
 
 var stringData = {"company": companyName,
-                  "maket": maketSize,
+                  "maketSize": maketSize,
                   "info": infoTask,
                   "platform": platform,
                   "buttonText": buttonText,
-                  "slogan": slogan,
-                  "description": description,
+                  "primaryMaketText": slogan,
+                  "secondaryMaketText": description,
                   "contacts": contacts};
 
 return stringData;
