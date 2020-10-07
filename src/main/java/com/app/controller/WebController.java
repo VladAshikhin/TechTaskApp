@@ -1,7 +1,7 @@
 package com.app.controller;
 
 
-import com.app.objects.Task;
+import com.app.objects.templatetypes.Task;
 import com.app.service.PerformPdfService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

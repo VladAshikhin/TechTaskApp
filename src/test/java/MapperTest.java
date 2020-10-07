@@ -1,4 +1,4 @@
-import com.app.objects.Task;
+import com.app.objects.templatetypes.Task;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;

@@ -1,18 +1,23 @@
-package com.app.objects;
+package com.app.objects.templatetypes;
 
+import lombok.Getter;
+
+import java.util.Date;
+
+@Getter
 public class Task {
 
     private String company;
     private String maketSize;
-    //maketOrientation
+    private String maketOrientation;
     private String info;
     private String platform;
-    //private DateTime deadline;
-    //private boolean buttonRequired;
+    private Date deadline;
+    private String button;
     private String buttonText;
     private String primaryMaketText;
     private String secondaryMaketText;
-    //filesPrepared
+    private String[] source;
     // examplesReady
     private String contacts;
 
@@ -20,12 +25,16 @@ public class Task {
     public String toString() {
         return "Task{" +
                 "company='" + company + '\'' +
-                ", maket='" + maketSize + '\'' +
+                ", maketSize='" + maketSize + '\'' +
+                ", maketOrientation='" + maketOrientation + '\'' +
                 ", info='" + info + '\'' +
                 ", platform='" + platform + '\'' +
+                ", deadline=" + deadline +
+                ", button='" + button + '\'' +
                 ", buttonText='" + buttonText + '\'' +
-                ", slogan='" + primaryMaketText + '\'' +
-                ", description='" + secondaryMaketText + '\'' +
+                ", primaryMaketText='" + primaryMaketText + '\'' +
+                ", secondaryMaketText='" + secondaryMaketText + '\'' +
+                ", source=" + source +
                 ", contacts='" + contacts + '\'' +
                 '}';
     }
@@ -41,37 +50,7 @@ public class Task {
         this.contacts = contacts;
     }
 
-    public Task() {}
-
-    public String getCompany() {
-        return company;
+    public Task() {
     }
 
-    public String getMaketSize() {
-        return maketSize;
-    }
-
-    public String getInfo() {
-        return info;
-    }
-
-    public String getPlatform() {
-        return platform;
-    }
-
-    public String getButtonText() {
-        return buttonText;
-    }
-
-    public String getPrimaryMaketText() {
-        return primaryMaketText;
-    }
-
-    public String getSecondaryMaketText() {
-        return secondaryMaketText;
-    }
-
-    public String getContacts() {
-        return contacts;
-    }
 }

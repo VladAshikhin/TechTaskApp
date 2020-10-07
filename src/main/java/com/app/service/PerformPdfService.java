@@ -1,6 +1,6 @@
 package com.app.service;
 
-import com.app.objects.Task;
+import com.app.objects.templatetypes.Task;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -8,11 +8,14 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 @Service
 public class PerformPdfService {
 
     public void performPdf(Task task) {
+        System.out.println("Sources are: " + Arrays.asList(task.getSource()));
+
         PDDocument document = new PDDocument();
         PDPage page = new PDPage();
         document.addPage(page);
@@ -39,22 +42,30 @@ public class PerformPdfService {
         }
     }
 
-    public void populateContent(PDPageContentStream content, Task task) throws IOException {
+    public void populateContent(PDPageContentStream c, Task task) throws IOException {
 
-        content.showText("Your company name: " + task.getCompany());
-        content.newLine();
-        content.showText("Your maket size: " + task.getMaketSize());
-        content.newLine();
-        content.showText("Info: " + task.getInfo());
-        content.newLine();
-        content.showText("Platform: " + task.getPlatform());
-        content.newLine();
-        content.showText("Button Text: " + task.getButtonText());
-        content.newLine();
-        content.showText("Primary text: " + task.getPrimaryMaketText());
-        content.newLine();
-        content.showText("Secondary text: " + task.getSecondaryMaketText());
-        content.newLine();
-        content.showText("Contacts: " + task.getContacts());
+        String needButton = task.getButton().equalsIgnoreCase("yes") ? "Ok, we need a button" : "We don't need a button";
+
+        c.showText("Your company name: " + task.getCompany());
+        c.newLine();
+        c.showText("Your maket size: " + task.getMaketSize());
+        c.newLine();
+        c.showText("Orientation of your maket: " + task.getMaketOrientation());
+        c.newLine();
+        c.showText("Info: " + task.getInfo());
+        c.newLine();
+        c.showText("Platform: " + task.getPlatform());
+        c.newLine();
+        c.showText("Deadline is: " + task.getDeadline());
+        c.newLine();
+        c.showText(needButton);
+        c.newLine();
+        c.showText("Button Text: " + task.getButtonText());
+        c.newLine();
+        c.showText("Primary text: " + task.getPrimaryMaketText());
+        c.newLine();
+        c.showText("Secondary text: " + task.getSecondaryMaketText());
+        c.newLine();
+        c.showText("Contacts: " + task.getContacts());
     }
 }
