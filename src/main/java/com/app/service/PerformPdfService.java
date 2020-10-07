@@ -1,6 +1,6 @@
 package com.app.service;
 
-import com.app.objects.templatetypes.Task;
+import com.app.objects.templatetypes.CorporateStyle;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -13,8 +13,8 @@ import java.util.Arrays;
 @Service
 public class PerformPdfService {
 
-    public void performPdf(Task task) {
-        System.out.println("Sources are: " + Arrays.asList(task.getSource()));
+    public void performPdf(CorporateStyle corporateStyle) {
+        System.out.println("Sources are: " + Arrays.asList(corporateStyle.getSource()));
 
         PDDocument document = new PDDocument();
         PDPage page = new PDPage();
@@ -30,7 +30,7 @@ public class PerformPdfService {
             content.showText("Your tech task");
             content.newLine();
 
-            populateContent(content, task);
+            populateContent(content, corporateStyle);
 
             content.endText();
             content.close();
@@ -42,30 +42,30 @@ public class PerformPdfService {
         }
     }
 
-    public void populateContent(PDPageContentStream c, Task task) throws IOException {
+    public void populateContent(PDPageContentStream c, CorporateStyle corporateStyle) throws IOException {
 
-        String needButton = task.getButton().equalsIgnoreCase("yes") ? "Ok, we need a button" : "We don't need a button";
+        String needButton = corporateStyle.getButton().equalsIgnoreCase("yes") ? "Ok, we need a button" : "We don't need a button";
 
-        c.showText("Your company name: " + task.getCompany());
+        c.showText("Your company name: " + corporateStyle.getCompany());
         c.newLine();
-        c.showText("Your maket size: " + task.getMaketSize());
+        c.showText("Your maket size: " + corporateStyle.getMaketSize());
         c.newLine();
-        c.showText("Orientation of your maket: " + task.getMaketOrientation());
+        c.showText("Orientation of your maket: " + corporateStyle.getMaketOrientation());
         c.newLine();
-        c.showText("Info: " + task.getInfo());
+        c.showText("Info: " + corporateStyle.getInfo());
         c.newLine();
-        c.showText("Platform: " + task.getPlatform());
+        c.showText("Platform: " + corporateStyle.getPlatform());
         c.newLine();
-        c.showText("Deadline is: " + task.getDeadline());
+        c.showText("Deadline is: " + corporateStyle.getDeadline());
         c.newLine();
         c.showText(needButton);
         c.newLine();
-        c.showText("Button Text: " + task.getButtonText());
+        c.showText("Button Text: " + corporateStyle.getButtonText());
         c.newLine();
-        c.showText("Primary text: " + task.getPrimaryMaketText());
+        c.showText("Primary text: " + corporateStyle.getPrimaryMaketText());
         c.newLine();
-        c.showText("Secondary text: " + task.getSecondaryMaketText());
+        c.showText("Secondary text: " + corporateStyle.getSecondaryMaketText());
         c.newLine();
-        c.showText("Contacts: " + task.getContacts());
+        c.showText("Contacts: " + corporateStyle.getContacts());
     }
 }

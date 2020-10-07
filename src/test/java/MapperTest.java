@@ -1,4 +1,4 @@
-import com.app.objects.templatetypes.Task;
+import com.app.objects.templatetypes.CorporateStyle;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -44,7 +44,7 @@ public class MapperTest {
         }
     }
 
-    public static Task getSampleTask() {
+    public static CorporateStyle getSampleTask() {
         return null;//new Task("Ulmart", "200x400", );
     }
 

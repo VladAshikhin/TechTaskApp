@@ -1,7 +1,7 @@
 package com.app.controller;
 
 
-import com.app.objects.templatetypes.Task;
+import com.app.objects.templatetypes.CorporateStyle;
 import com.app.service.PerformPdfService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,9 +31,9 @@ public class WebController {
     public ResponseEntity<HttpStatus> preparePdf(@RequestBody String data) throws JsonProcessingException {
         System.out.println("Data input: " + data);
         ObjectMapper mapper = new ObjectMapper();
-        Task task = mapper.readValue(data, Task.class);
+        CorporateStyle corporateStyle = mapper.readValue(data, CorporateStyle.class);
         try {
-            service.performPdf(task);
+            service.performPdf(corporateStyle);
         } catch (Exception e) {
             System.out.println("Error in controller.");
             e.printStackTrace();

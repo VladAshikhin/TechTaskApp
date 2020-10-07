@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.util.Date;
 
 @Getter
-public class Task {
+public class CorporateStyle {
 
     private String company;
     private String maketSize;
@@ -39,7 +39,7 @@ public class Task {
                 '}';
     }
 
-    public Task(String company, String maketSize, String info, String platform, String buttonText, String primaryMaketText, String secondaryMaketText, String contacts) {
+    public CorporateStyle(String company, String maketSize, String info, String platform, String buttonText, String primaryMaketText, String secondaryMaketText, String contacts) {
         this.company = company;
         this.maketSize = maketSize;
         this.info = info;
@@ -50,7 +50,7 @@ public class Task {
         this.contacts = contacts;
     }
 
-    public Task() {
+    public CorporateStyle() {
     }
 
 }
