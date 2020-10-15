@@ -66,7 +66,7 @@ function getJsonData() {
     let primaryText = $("#slogan").val();
     let secondaryText = $("#description").val();
     let contacts = $("#contacts").val();
-    let source = getSource()
+    let example
 
 
     return {

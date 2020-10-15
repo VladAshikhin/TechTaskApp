@@ -33,7 +33,7 @@ public class WebController {
         ObjectMapper mapper = new ObjectMapper();
         CorporateStyle corporateStyle = mapper.readValue(data, CorporateStyle.class);
         try {
-            service.performPdf(corporateStyle);
+            service.preProcess(corporateStyle);
         } catch (Exception e) {
             System.out.println("Error in controller.");
             e.printStackTrace();

@@ -1,10 +1,14 @@
 package com.app.objects.templatetypes;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class CorporateStyle {
 
     private String company;
@@ -17,13 +21,13 @@ public class CorporateStyle {
     private String buttonText;
     private String primaryMaketText;
     private String secondaryMaketText;
-    private String[] source;
-    // examplesReady
     private String contacts;
+    private String examplesReady;
+    //private String[] source;
 
     @Override
     public String toString() {
-        return "Task{" +
+        return "CorporateStyle{" +
                 "company='" + company + '\'' +
                 ", maketSize='" + maketSize + '\'' +
                 ", maketOrientation='" + maketOrientation + '\'' +
@@ -34,23 +38,9 @@ public class CorporateStyle {
                 ", buttonText='" + buttonText + '\'' +
                 ", primaryMaketText='" + primaryMaketText + '\'' +
                 ", secondaryMaketText='" + secondaryMaketText + '\'' +
-                ", source=" + source +
                 ", contacts='" + contacts + '\'' +
+                ", examplesReady='" + examplesReady + '\'' +
+                // ", source=" + source +
                 '}';
     }
-
-    public CorporateStyle(String company, String maketSize, String info, String platform, String buttonText, String primaryMaketText, String secondaryMaketText, String contacts) {
-        this.company = company;
-        this.maketSize = maketSize;
-        this.info = info;
-        this.platform = platform;
-        this.buttonText = buttonText;
-        this.primaryMaketText = primaryMaketText;
-        this.secondaryMaketText = secondaryMaketText;
-        this.contacts = contacts;
-    }
-
-    public CorporateStyle() {
-    }
-
 }

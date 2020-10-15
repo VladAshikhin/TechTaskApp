@@ -1,20 +1,46 @@
 package com.app.service;
 
+import com.app.objects.templatetypes.Banner;
 import com.app.objects.templatetypes.CorporateStyle;
+import com.app.objects.templatetypes.Logo;
+import com.app.objects.templatetypes.Presentation;
+import com.app.repo.BannerRepo;
+import com.app.repo.LogoRepo;
+import com.app.repo.PresentationRepo;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PerformPdfService {
 
-    public void performPdf(CorporateStyle corporateStyle) {
-        System.out.println("Sources are: " + Arrays.asList(corporateStyle.getSource()));
+    @Autowired
+    private LogoRepo logoRepo;
+    @Autowired
+    private BannerRepo bannerRepo;
+    @Autowired
+    private PresentationRepo presentationRepo;
+
+    public void preProcess(CorporateStyle corporateStyle) {
+
+        performPdf(corporateStyle);
+    }
+
+    private void performPdf(CorporateStyle corporateStyle) {
+
+        List<Logo> logos = logoRepo.findAll();
+        List<Banner> banners = bannerRepo.findAll();
+        List<Presentation> presentations = presentationRepo.findAll();
+
+        logos.forEach(logo -> System.out.println("Logo: " + logo.getId() + " " + logo.getName()));
 
         PDDocument document = new PDDocument();
         PDPage page = new PDPage();
