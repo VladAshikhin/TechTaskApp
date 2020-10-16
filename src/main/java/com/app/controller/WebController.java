@@ -1,7 +1,7 @@
 package com.app.controller;
 
 
-import com.app.objects.templatetypes.CorporateStyle;
+import com.app.objects.CorporateStyle;
 import com.app.service.PerformPdfService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,9 +19,6 @@ public class WebController {
     @Autowired
     PerformPdfService service;
 
-    // Using @RestController without @ResponseBody is the same as
-    // using @Controller with @ResponseBody
-
     @ResponseBody
     public String welcome() {
         return "index";
@@ -30,8 +27,10 @@ public class WebController {
     @PostMapping(value = "/pdf")
     public ResponseEntity<HttpStatus> preparePdf(@RequestBody String data) throws JsonProcessingException {
         System.out.println("Data input: " + data);
+
         ObjectMapper mapper = new ObjectMapper();
         CorporateStyle corporateStyle = mapper.readValue(data, CorporateStyle.class);
+
         try {
             service.preProcess(corporateStyle);
         } catch (Exception e) {

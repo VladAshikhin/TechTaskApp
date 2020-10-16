@@ -4,17 +4,13 @@ $("#fillData").on("click", function () {
 
 $("#performPdf").on("click", function () {
 
-    console.log("PerformPdf Clicked.")
-
     let data = getJsonData()
     let json = JSON.stringify(data);
 
     sendJson(json);
-
 });
 
 function fillData() {
-    console.log("test fillData")
     $("#company-name").val('Ulmart');
     $("#maket-size").val('200x400');
     $("#hor").attr('checked', true);
@@ -29,7 +25,7 @@ function fillData() {
     $("#vector-logo").prop('checked', true)
     $("#brandbook").prop('checked', true)
     $("#haveExample").prop('checked', true)
-
+    $("#exampleYes").prop('checked', true)
 }
 
 
@@ -53,53 +49,49 @@ function sendJson(json) {
 
 function getJsonData() {
 
-    console.log("getJsonData")
+    console.log("getJsonData!!!")
 
     let companyName = $("#company-name").val();
     let maketSize = $("#maket-size").val();
-    let orientation = getOrientation();
+    let orientation = getRadioButtonValueByName('orientation');
     let infoTask = $("#info-task").val();
     let platform = $("#platform").val();
     let deadline = $("#deadline").val();
-    let button = getButtonRequired();
+    let button = getRadioButtonValueByName('buttonrequired');
     let buttonText = $("#button-text").val();
     let primaryText = $("#slogan").val();
     let secondaryText = $("#description").val();
     let contacts = $("#contacts").val();
-    let example
+    let example = getRadioButtonValueByName('example')
 
+    console.log(example)
 
     return {
-        "company": companyName,
+        "companyName": companyName,
         "maketSize": maketSize,
         "maketOrientation": orientation,
         "info": infoTask,
         "platform": platform,
         "deadline": deadline,
-        "button": button,
+        "buttonRequired": button,
         "buttonText": buttonText,
         "primaryMaketText": primaryText,
         "secondaryMaketText": secondaryText,
         "contacts": contacts,
-        "source": source
+        "examplesReady": example
     }
 }
 
-function getOrientation() {
-    var radios = document.getElementsByName('orientation');
+function getRadioButtonValueByName(elementName) {
+    console.log('Enter getValue by name ' + elementName)
+    var radios = document.getElementsByName(elementName);
+    console.log('Radios size: ' + radios.length)
 
     for (var i = 0, length = radios.length; i < length; i++) {
+        console.log("Radio " + i + " is checked? " + radios[i].checked)
         if (radios[i].checked) {
-            return radios[i].value;
-        }
-    }
-}
-
-function getButtonRequired() {
-    let radios = document.getElementsByName('buttonrequired');
-
-    for (var i = 0, length = radios.length; i < length; i++) {
-        if (radios[i].checked) {
+        console.log("Checked")
+            console.log("Element " + elementName + ": " + radios[i].value)
             return radios[i].value;
         }
     }

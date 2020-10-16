@@ -1,12 +1,13 @@
 package com.app.service;
 
-import com.app.objects.templatetypes.Banner;
-import com.app.objects.templatetypes.CorporateStyle;
-import com.app.objects.templatetypes.Logo;
-import com.app.objects.templatetypes.Presentation;
-import com.app.repo.BannerRepo;
-import com.app.repo.LogoRepo;
-import com.app.repo.PresentationRepo;
+import com.app.objects.Banner;
+import com.app.objects.CorporateStyle;
+import com.app.objects.Logo;
+import com.app.objects.Presentation;
+import com.app.repository.BannerRepository;
+import com.app.repository.CorporateStyleRepository;
+import com.app.repository.LogoRepository;
+import com.app.repository.PresentationRepository;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -15,32 +16,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PerformPdfService {
 
     @Autowired
-    private LogoRepo logoRepo;
+    private LogoRepository logoRepository;
     @Autowired
-    private BannerRepo bannerRepo;
+    private BannerRepository bannerRepository;
     @Autowired
-    private PresentationRepo presentationRepo;
+    private PresentationRepository presentationRepository;
+    @Autowired
+    private CorporateStyleRepository corporateStyleRepository;
 
     public void preProcess(CorporateStyle corporateStyle) {
+        corporateStyleRepository.saveAndFlush(corporateStyle);
+
+        corporateStyleRepository.findAll();
 
         performPdf(corporateStyle);
     }
 
     private void performPdf(CorporateStyle corporateStyle) {
 
-        List<Logo> logos = logoRepo.findAll();
-        List<Banner> banners = bannerRepo.findAll();
-        List<Presentation> presentations = presentationRepo.findAll();
-
-        logos.forEach(logo -> System.out.println("Logo: " + logo.getId() + " " + logo.getName()));
+        System.out.println("Dedaline: " + corporateStyle.getDeadline());
 
         PDDocument document = new PDDocument();
         PDPage page = new PDPage();
@@ -70,9 +70,9 @@ public class PerformPdfService {
 
     public void populateContent(PDPageContentStream c, CorporateStyle corporateStyle) throws IOException {
 
-        String needButton = corporateStyle.getButton().equalsIgnoreCase("yes") ? "Ok, we need a button" : "We don't need a button";
+        String needButton = corporateStyle.getButtonRequired() ? "Ok, we need a button" : "We don't need a button";
 
-        c.showText("Your company name: " + corporateStyle.getCompany());
+        c.showText("Your company name: " + corporateStyle.getCompanyName());
         c.newLine();
         c.showText("Your maket size: " + corporateStyle.getMaketSize());
         c.newLine();

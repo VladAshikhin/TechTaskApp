@@ -1,4 +1,4 @@
-package com.app.objects.templatetypes;
+package com.app.objects;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,9 +10,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "logo")
-public class Logo {
-
+@Table(name = "banner")
+public class Banner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -26,15 +25,9 @@ public class Logo {
     @Column(name = "format")
     private String format;
 
-    public Logo(String name, String size, String format) {
-        this.name = name;
-        this.size = size;
-        this.format = format;
-    }
-
     @Override
     public String toString() {
-        return "Logo{" +
+        return "Banner{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", size='" + size + '\'' +
