@@ -1,5 +1,6 @@
 package com.app.service;
 
+import com.app.exceptions.TemplateProcessingException;
 import com.app.objects.Banner;
 import com.app.objects.CorporateStyle;
 import com.app.objects.Logo;
@@ -50,7 +51,7 @@ public class PerformPdfService {
                 corporateStyleRepository.saveAndFlush(style);
                 break;
             default:
-                throw new RuntimeException("Undefined class " + className);
+                throw new TemplateProcessingException("Undefined class " + className);
         }
 
     }
