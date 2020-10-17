@@ -9,6 +9,8 @@ import com.app.repository.BannerRepository;
 import com.app.repository.CorporateStyleRepository;
 import com.app.repository.LogoRepository;
 import com.app.repository.PresentationRepository;
+import com.app.service.pdfcreators.PdfCreator;
+import com.app.service.pdfcreators.PdfCreatorManager;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -29,6 +31,9 @@ public class PerformPdfService {
     private PresentationRepository presentationRepository;
     @Autowired
     private CorporateStyleRepository corporateStyleRepository;
+
+    @Autowired
+    PdfCreatorManager pdfCreatorManager;
 
     public void preProcessTemplate(Object template) {
         String className = template.getClass().getSimpleName();
@@ -54,36 +59,17 @@ public class PerformPdfService {
                 throw new TemplateProcessingException("Undefined class " + className);
         }
 
+        PdfCreator pdfCreator = pdfCreatorManager.definePdfCreator(template);
+
+        pdfCreator.createPrf(template);
+
     }
 
     private void performPdf(CorporateStyle corporateStyle) {
 
         System.out.println("Dedaline: " + corporateStyle.getDeadline());
 
-        PDDocument document = new PDDocument();
-        PDPage page = new PDPage();
-        document.addPage(page);
 
-        try {
-            PDPageContentStream content = new PDPageContentStream(document, page);
-            content.setFont(PDType1Font.COURIER, 14);
-            content.beginText();
-            content.newLineAtOffset(25, 701);
-            content.setLeading(14.5f);
-
-            content.showText("Your tech task");
-            content.newLine();
-
-            populateContent(content, corporateStyle);
-
-            content.endText();
-            content.close();
-
-            document.save("tech_task.pdf");
-            document.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void populateContent(PDPageContentStream c, CorporateStyle corporateStyle) throws IOException {
