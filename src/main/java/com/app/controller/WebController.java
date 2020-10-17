@@ -1,8 +1,7 @@
 package com.app.controller;
 
 
-import com.app.objects.CorporateStyle;
-import com.app.service.PerformPdfService;
+import com.app.service.TemplateService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Map;
+
 @Controller
 public class WebController {
 
     @Autowired
-    PerformPdfService service;
+    TemplateService service;
 
     @ResponseBody
     public String welcome() {
@@ -29,10 +30,10 @@ public class WebController {
         System.out.println("Data input: " + data);
 
         ObjectMapper mapper = new ObjectMapper();
-        CorporateStyle corporateStyle = mapper.readValue(data, CorporateStyle.class);
+        Map<String, Object> dataObject = mapper.readValue(data, Map.class);
 
         try {
-            service.preProcess(corporateStyle);
+            service.processTemplate(dataObject, mapper);
         } catch (Exception e) {
             System.out.println("Error in controller.");
             e.printStackTrace();

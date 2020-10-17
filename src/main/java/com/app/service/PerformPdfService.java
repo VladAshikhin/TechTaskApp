@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.List;
 
 @Service
 public class PerformPdfService {
@@ -30,12 +29,30 @@ public class PerformPdfService {
     @Autowired
     private CorporateStyleRepository corporateStyleRepository;
 
-    public void preProcess(CorporateStyle corporateStyle) {
-        corporateStyleRepository.saveAndFlush(corporateStyle);
+    public void preProcessTemplate(Object template) {
+        String className = template.getClass().getSimpleName();
 
-        corporateStyleRepository.findAll();
+        switch (className) {
+            case "Logo":
+                Logo logo = (Logo) template;
+                logoRepository.saveAndFlush(logo);
+                break;
+            case "Banner":
+                Banner banner = (Banner) template;
+                bannerRepository.saveAndFlush(banner);
+                break;
+            case "Presentation":
+                Presentation presentation = (Presentation) template;
+                presentationRepository.saveAndFlush(presentation);
+                break;
+            case "CorporateStyle":
+                CorporateStyle style = (CorporateStyle) template;
+                corporateStyleRepository.saveAndFlush(style);
+                break;
+            default:
+                throw new RuntimeException("Undefined class " + className);
+        }
 
-        performPdf(corporateStyle);
     }
 
     private void performPdf(CorporateStyle corporateStyle) {
@@ -68,7 +85,7 @@ public class PerformPdfService {
         }
     }
 
-    public void populateContent(PDPageContentStream c, CorporateStyle corporateStyle) throws IOException {
+    private void populateContent(PDPageContentStream c, CorporateStyle corporateStyle) throws IOException {
 
         String needButton = corporateStyle.getButtonRequired() ? "Ok, we need a button" : "We don't need a button";
 

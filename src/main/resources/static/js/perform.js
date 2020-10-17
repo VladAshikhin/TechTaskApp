@@ -64,40 +64,40 @@ function getJsonData() {
     let contacts = $("#contacts").val();
     let example = getRadioButtonValueByName('example')
 
-    console.log(example)
+    let type = "corporateStyle"
 
     return {
-        "companyName": companyName,
-        "maketSize": maketSize,
-        "maketOrientation": orientation,
-        "info": infoTask,
-        "platform": platform,
-        "deadline": deadline,
-        "buttonRequired": button,
-        "buttonText": buttonText,
-        "primaryMaketText": primaryText,
-        "secondaryMaketText": secondaryText,
-        "contacts": contacts,
-        "examplesReady": example
+        "type": type,
+        "data":
+            {
+                "companyName": companyName,
+                "maketSize": maketSize,
+                "maketOrientation": orientation,
+                "info": infoTask,
+                "platform": platform,
+                "deadline": deadline,
+                "buttonRequired": button,
+                "buttonText": buttonText,
+                "primaryMaketText": primaryText,
+                "secondaryMaketText": secondaryText,
+                "contacts": contacts,
+                "examplesReady": example
+            }
     }
 }
 
 function getRadioButtonValueByName(elementName) {
-    console.log('Enter getValue by name ' + elementName)
     var radios = document.getElementsByName(elementName);
-    console.log('Radios size: ' + radios.length)
 
     for (var i = 0, length = radios.length; i < length; i++) {
-        console.log("Radio " + i + " is checked? " + radios[i].checked)
         if (radios[i].checked) {
-        console.log("Checked")
-            console.log("Element " + elementName + ": " + radios[i].value)
             return radios[i].value;
         }
     }
 }
 
-function getSource() {
+// Field to be added later
+/*function getSource() {
     console.log("Enter getSource")
     let checks = document.getElementsByName('source');
 
@@ -110,7 +110,7 @@ function getSource() {
     }
 
     console.log("Values " + values)
-}
+}*/
 
 function setDeadline() {
 
