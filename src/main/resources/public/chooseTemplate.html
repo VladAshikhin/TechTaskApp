@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Choose template type</title>
+</head>
+<body>
+
+<div>
+
+    <button id="choose-logo" onclick="redirectToLogoTemplate()">Логотип</button>
+    <button id="chosse-banner" onclick="redirectToBannerTemplate()">Баннер</button>
+    <button id="choose-pres" onclick="redirectToPresentationTemplate()">Презентация</button>
+    <button id="corporate-style" onclick="redirectToCorporateStyleTemplate()">Корпортивный стиль</button>
+
+</div>
+
+<script>
+    function redirectToLogoTemplate() {
+        location.replace("logoTemplate.html")
+    }
+    function redirectToBannerTemplate() {
+        location.replace("bannerTemplate.html")
+    }
+    function redirectToPresentationTemplate() {
+        location.replace("presentationTemplate.html")
+    }
+    function redirectToCorporateStyleTemplate() {
+        location.replace("corporateStyleTemplate.html")
+    }
+</script>
+
+</body>
+</html>
