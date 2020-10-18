@@ -2,9 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <title>Презентация</title>
 </head>
 <body>
+<h1>Презентация</h1>
 
-</body>
+<button id="presentation-fill-data">Заполнить поля</button>
+<button id="presentation-perform-pdf">Сформировать моё техзадание</button>
+<button onclick="redirectToChooseTemplate()">Назад</button>
+
+<p>Укажите название презентации</p>
+<input type="text" id="presentation-name" class="data presentation-name" placeholder="Презентация" size="40">
+
+<p>Укажите формат презентации</p>
+<input type="text" id="presentation-format" class="data presentation-format" placeholder=".png" size="40">
+
+<script type="text/javascript" src="/js/perform.js"></script>
+
+<script>
+    function redirectToChooseTemplate() {
+        location.replace("chooseTemplate.html")
+    }
+</script></body>
 </html>

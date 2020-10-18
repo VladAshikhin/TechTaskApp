@@ -8,6 +8,6 @@ public interface PdfCreator {
 
     void populateContent(PDPageContentStream content, Object template);
 
-    void createPrf(Object template);
+    void createPdf(Object template);
 
 }

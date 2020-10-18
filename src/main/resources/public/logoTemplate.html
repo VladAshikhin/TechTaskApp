@@ -2,9 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <title>Логотип</title>
 </head>
 <body>
+<h1>Логотип</h1>
+
+<button id="logo-fill-data">Заполнить поля</button>
+<button id="logo-perform-pdf">Сформировать моё техзадание</button>
+<button onclick="redirectToChooseTemplate()">Назад</button>
+
+<p>Укажите название логотипа</p>
+<input type="text" id="logo-name" class="data logo-name" placeholder="Бип-логотип" size="40">
+
+<p>Укажите размер логотипа</p>
+<input type="text" id="logo-size" class="data logo-size" placeholder="128x128" size="40">
+
+<p>Укажите формат логотипа</p>
+<input type="text" id="logo-format" class="data logo-format" placeholder=".png" size="40">
+
+<script type="text/javascript" src="/js/perform.js"></script>
+
+<script>
+    function redirectToChooseTemplate() {
+        location.replace("chooseTemplate.html")
+    }
+</script>
 
 </body>
 </html>

@@ -14,8 +14,15 @@
     <button id="corporate-style" onclick="redirectToCorporateStyleTemplate()">Корпортивный стиль</button>
 
 </div>
+<div>
+    <button onclick="redirectToAuth()">Назад</button>
+</div>
 
 <script>
+    function redirectToAuth() {
+        location.replace("index.html")
+    }
+
     function redirectToLogoTemplate() {
         location.replace("logoTemplate.html")
     }

@@ -1,16 +1,42 @@
 $("#fillData").on("click", function () {
-    fillData();
+    fillCorporateData();
+})
+$("#logo-fill-data").on("click", function () {
+    fillLogoData();
+})
+$("#banner-fill-data").on("click", function () {
+    fillBannerData();
+})
+$("#presentation-fill-data").on("click", function () {
+    fillPresentationData();
 })
 
 $("#performPdf").on("click", function () {
+    let data = getCorporateStyleData()
+    let json = JSON.stringify(data);
 
-    let data = getJsonData()
+    sendJson(json);
+});
+$("#logo-perform-pdf").on("click", function () {
+    let data = getLogoData()
+    let json = JSON.stringify(data);
+
+    sendJson(json);
+});
+$("#banner-perform-pdf").on("click", function () {
+    let data = getBannerData()
+    let json = JSON.stringify(data);
+
+    sendJson(json);
+});
+$("#presentation-perform-pdf").on("click", function () {
+    let data = getPresentationData()
     let json = JSON.stringify(data);
 
     sendJson(json);
 });
 
-function fillData() {
+function fillCorporateData() {
     $("#company-name").val('Ulmart');
     $("#maket-size").val('200x400');
     $("#hor").attr('checked', true);
@@ -26,6 +52,23 @@ function fillData() {
     $("#brandbook").prop('checked', true)
     $("#haveExample").prop('checked', true)
     $("#exampleYes").prop('checked', true)
+}
+
+function fillLogoData() {
+    $("#logo-name").val('Логотип-тип');
+    $("#logo-size").val('128x128');
+    $("#logo-format").val('.png');
+}
+
+function fillBannerData() {
+    $("#banner-name").val('Баннер-маннер');
+    $("#banner-size").val('128x128');
+    $("#banner-format").val('.ban');
+}
+
+function fillPresentationData() {
+    $("#presentation-name").val('Презентация-канализация');
+    $("#presentation-format").val('.ppt');
 }
 
 
@@ -47,7 +90,8 @@ function sendJson(json) {
     });
 }
 
-function getJsonData() {
+function getCorporateStyleData() {
+    let type = "corporateStyle"
 
     console.log("getJsonData!!!")
 
@@ -63,8 +107,6 @@ function getJsonData() {
     let secondaryText = $("#description").val();
     let contacts = $("#contacts").val();
     let example = getRadioButtonValueByName('example')
-
-    let type = "corporateStyle"
 
     return {
         "type": type,
@@ -82,6 +124,58 @@ function getJsonData() {
                 "secondaryMaketText": secondaryText,
                 "contacts": contacts,
                 "examplesReady": example
+            }
+    }
+}
+
+function getLogoData() {
+    let type = "logo"
+
+    let name = $("#logo-name").val();
+    let size = $("#logo-size").val();
+    let format = $("#logo-format").val();
+
+    return {
+        "type": type,
+        "data":
+            {
+                "name": name,
+                "size": size,
+                "format": format
+            }
+    }
+}
+
+function getBannerData() {
+    let type = "banner"
+
+    let name = $("#banner-name").val();
+    let size = $("#banner-size").val();
+    let format = $("#banner-format").val();
+
+    return {
+        "type": type,
+        "data":
+            {
+                "name": name,
+                "size": size,
+                "format": format
+            }
+    }
+}
+
+function getPresentationData() {
+    let type = "presentation"
+
+    let name = $("#presentation-name").val();
+    let format = $("#presentation-format").val();
+
+    return {
+        "type": type,
+        "data":
+            {
+                "name": name,
+                "format": format
             }
     }
 }

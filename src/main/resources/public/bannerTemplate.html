@@ -2,9 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <title>Баннер</title>
 </head>
 <body>
+<h1>Баннер</h1>
 
-</body>
+<button id="banner-fill-data">Заполнить поля</button>
+<button id="banner-perform-pdf">Сформировать моё техзадание</button>
+<button onclick="redirectToChooseTemplate()">Назад</button>
+
+<p>Укажите название баннера</p>
+<input type="text" id="banner-name" class="data banner-name" placeholder="Баннер" size="40">
+
+<p>Укажите размер баннера</p>
+<input type="text" id="banner-size" class="data banner-size" placeholder="128x128" size="40">
+
+<p>Укажите формат баннера</p>
+<input type="text" id="banner-format" class="data banner-format" placeholder=".png" size="40">
+
+<script type="text/javascript" src="/js/perform.js"></script>
+
+<script>
+    function redirectToChooseTemplate() {
+        location.replace("chooseTemplate.html")
+    }
+</script></body>
 </html>

@@ -11,7 +11,7 @@ public class LogoPdfCreator implements PdfCreator {
     }
 
     @Override
-    public void createPrf(Object template) {
+    public void createPdf(Object template) {
 
     }
 }

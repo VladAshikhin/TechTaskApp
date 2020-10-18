@@ -13,7 +13,7 @@ import java.io.IOException;
 public class CorporateStylePdfCreator implements PdfCreator {
 
     @Override
-    public void createPrf(Object template) {
+    public void createPdf(Object template) {
         CorporateStyle corporateStyle = (CorporateStyle) template;
 
         PDDocument document = new PDDocument();

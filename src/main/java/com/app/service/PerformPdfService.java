@@ -11,10 +11,7 @@ import com.app.repository.LogoRepository;
 import com.app.repository.PresentationRepository;
 import com.app.service.pdfcreators.PdfCreator;
 import com.app.service.pdfcreators.PdfCreatorManager;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,32 +33,10 @@ public class PerformPdfService {
     PdfCreatorManager pdfCreatorManager;
 
     public void preProcessTemplate(Object template) {
-        String className = template.getClass().getSimpleName();
-
-        switch (className) {
-            case "Logo":
-                Logo logo = (Logo) template;
-                logoRepository.saveAndFlush(logo);
-                break;
-            case "Banner":
-                Banner banner = (Banner) template;
-                bannerRepository.saveAndFlush(banner);
-                break;
-            case "Presentation":
-                Presentation presentation = (Presentation) template;
-                presentationRepository.saveAndFlush(presentation);
-                break;
-            case "CorporateStyle":
-                CorporateStyle style = (CorporateStyle) template;
-                corporateStyleRepository.saveAndFlush(style);
-                break;
-            default:
-                throw new TemplateProcessingException("Undefined class " + className);
-        }
 
         PdfCreator pdfCreator = pdfCreatorManager.definePdfCreator(template);
 
-        pdfCreator.createPrf(template);
+        pdfCreator.createPdf(template);
 
     }
 

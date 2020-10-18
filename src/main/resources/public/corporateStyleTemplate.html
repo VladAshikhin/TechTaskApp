@@ -6,12 +6,11 @@
     <title>Technical specification</title>
 </head>
 <body>
-<p>
 <h1>Корпоративный стиль</h1>
 
 <button id="fillData">Заполнить поля</button>
 <button id="performPdf">Сформировать моё техзадание</button>
-
+<button onclick="redirectToChooseTemplate()">Назад</button>
 
 <p>Напишите название вашей организации</p>
 <input type="text" id="company-name" class="data company-name" placeholder="Студия красоты" size="40">
@@ -68,9 +67,12 @@
 <p><input type="radio" name="example" value="noButReady">Нет, но готов подготовить</p>
 <p><input type="radio" name="example" value="no">Нет</p>
 
-<!--<button id="performPdf">Сформировать моё техзадание</button>-->
-
 <script type="text/javascript" src="/js/perform.js"></script>
 
+<script>
+    function redirectToChooseTemplate() {
+        location.replace("chooseTemplate.html")
+    }
+</script>
 </body>
 </html>
