@@ -11,7 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "logo")
-public class Logo {
+public class Logo implements Template {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,28 +1,24 @@
 package com.app.service.pdfcreators;
 
 import com.app.exceptions.TemplateProcessingException;
+import com.app.objects.*;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PdfCreatorManager {
 
-    public PdfCreator definePdfCreator(Object template) {
+    public PdfCreator definePdfCreator(Template template) {
 
-        String className = template.getClass().getSimpleName();
-
-        switch (className) {
-            case "Logo":
-                return new LogoPdfCreator();
-            case "Banner":
-                return new BannerPfdCreator();
-            case "Presentation":
-                return new PresentationPdfCreator();
-            case "CorporateStyle":
-                return new CorporateStylePdfCreator();
-            default:
-                throw new TemplateProcessingException("Undefined class " + className);
+        if (template instanceof Logo) {
+            return new LogoPdfCreator();
+        } else if (template instanceof Banner) {
+            return new BannerPfdCreator();
+        } else if (template instanceof Presentation) {
+            return new PresentationPdfCreator();
+        } else if (template instanceof CorporateStyle) {
+            return new CorporateStylePdfCreator();
+        } else {
+            throw new TemplateProcessingException("Undefined class.");
         }
-
     }
-
 }

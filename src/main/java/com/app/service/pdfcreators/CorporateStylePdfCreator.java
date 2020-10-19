@@ -1,6 +1,7 @@
 package com.app.service.pdfcreators;
 
 import com.app.objects.CorporateStyle;
+import com.app.objects.Template;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -13,8 +14,7 @@ import java.io.IOException;
 public class CorporateStylePdfCreator implements PdfCreator {
 
     @Override
-    public void createPdf(Object template) {
-        CorporateStyle corporateStyle = (CorporateStyle) template;
+    public void createPdf(Template template) {
 
         PDDocument document = new PDDocument();
         PDPage page = new PDPage();
@@ -27,10 +27,10 @@ public class CorporateStylePdfCreator implements PdfCreator {
             content.newLineAtOffset(25, 701);
             content.setLeading(14.5f);
 
-            content.showText("Your tech task");
+            content.showText("Ваше техническое задание");
             content.newLine();
 
-            populateContent(content, corporateStyle);
+            populateContent(content, template);
 
             content.endText();
             content.close();
@@ -43,34 +43,34 @@ public class CorporateStylePdfCreator implements PdfCreator {
     }
 
     @Override
-    public void populateContent(PDPageContentStream c, Object template) {
+    public void populateContent(PDPageContentStream c, Template template) {
 
         CorporateStyle corporateStyle = (CorporateStyle) template;
 
-        String needButton = corporateStyle.getButtonRequired() ? "Ok, we need a button" : "We don't need a button";
+        String needButton = corporateStyle.getButtonRequired() ? "Кнопка необходима" : "Кнопка не нужна";
 
         try {
-            c.showText("Your company name: " + corporateStyle.getCompanyName());
+            c.showText("Название компании: " + corporateStyle.getCompanyName());
             c.newLine();
-            c.showText("Your maket size: " + corporateStyle.getMaketSize());
+            c.showText("Размер макета: " + corporateStyle.getMaketSize());
             c.newLine();
-            c.showText("Orientation of your maket: " + corporateStyle.getMaketOrientation());
+            c.showText("Ориентация макета: " + corporateStyle.getMaketOrientation());
             c.newLine();
-            c.showText("Info: " + corporateStyle.getInfo());
+            c.showText("Информация: " + corporateStyle.getInfo());
             c.newLine();
-            c.showText("Platform: " + corporateStyle.getPlatform());
+            c.showText("Платформа: " + corporateStyle.getPlatform());
             c.newLine();
-            c.showText("Deadline is: " + corporateStyle.getDeadline());
+            c.showText("Дедлайн: " + corporateStyle.getDeadline());
             c.newLine();
             c.showText(needButton);
             c.newLine();
-            c.showText("Button Text: " + corporateStyle.getButtonText());
+            c.showText("Надпись на кнопке: " + corporateStyle.getButtonText());
             c.newLine();
-            c.showText("Primary text: " + corporateStyle.getPrimaryMaketText());
+            c.showText("Главный текст на макете: " + corporateStyle.getPrimaryMaketText());
             c.newLine();
-            c.showText("Secondary text: " + corporateStyle.getSecondaryMaketText());
+            c.showText("Второстепенный текст на макете: " + corporateStyle.getSecondaryMaketText());
             c.newLine();
-            c.showText("Contacts: " + corporateStyle.getContacts());
+            c.showText("Контакты: " + corporateStyle.getContacts());
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -33,7 +33,7 @@ public class WebController {
         Map<String, Object> dataObject = mapper.readValue(data, Map.class);
 
         try {
-            service.processTemplate(dataObject, mapper);
+            service.processTemplate(dataObject);
         } catch (Exception e) {
             System.out.println("Error in controller.");
             e.printStackTrace();

@@ -12,7 +12,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @Entity
 @Table(name = "corporate_style")
-public class CorporateStyle {
+public class CorporateStyle implements Template{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

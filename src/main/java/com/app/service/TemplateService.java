@@ -1,15 +1,14 @@
 package com.app.service;
 
 import com.app.exceptions.TemplateProcessingException;
-import com.app.objects.Banner;
-import com.app.objects.CorporateStyle;
-import com.app.objects.Logo;
-import com.app.objects.Presentation;
+import com.app.objects.*;
 import com.app.objects.enums.TemplateType;
 import com.app.repository.BannerRepository;
 import com.app.repository.CorporateStyleRepository;
 import com.app.repository.LogoRepository;
 import com.app.repository.PresentationRepository;
+import com.app.service.pdfcreators.PdfCreator;
+import com.app.service.pdfcreators.PdfCreatorManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,9 +28,9 @@ public class TemplateService {
     private CorporateStyleRepository corporateStyleRepository;
 
     @Autowired
-    PerformPdfService pdfService;
+    PdfCreatorManager pdfCreatorManager;
 
-    public void processTemplate(Map<String, Object> dataObject, ObjectMapper mapper) {
+    public void processTemplate(Map<String, Object> dataObject) {
         if (!dataObject.containsKey("type") || !dataObject.containsKey("data")) {
             throw new TemplateProcessingException("Couldn't define Template Type or Data.");
         }
@@ -40,7 +39,17 @@ public class TemplateService {
 
         Map<String, String> data = (Map<String, String>) dataObject.get("data");
 
-        Object template;
+        Template template = defineTypeAndSave(data, type);
+
+        PdfCreator pdfCreator = pdfCreatorManager.definePdfCreator(template);
+
+        pdfCreator.createPdf(template);
+    }
+
+    private Template defineTypeAndSave(Map<String, String> data, TemplateType type) {
+        ObjectMapper mapper = new ObjectMapper();
+
+        Template template;
 
         switch (type) {
             case LOGO:
@@ -63,6 +72,6 @@ public class TemplateService {
                 throw new TemplateProcessingException("Undefined template type " + type);
         }
 
-        pdfService.preProcessTemplate(template);
+        return template;
     }
 }
