@@ -43,7 +43,7 @@ public class TemplateService {
 
         PdfCreator pdfCreator = pdfCreatorManager.definePdfCreator(template);
 
-        pdfCreator.createPdf(template);
+        pdfCreator.createPdf(template, type);
     }
 
     private Template defineTypeAndSave(Map<String, String> data, TemplateType type) {

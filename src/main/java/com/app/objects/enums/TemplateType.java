@@ -13,6 +13,9 @@ public enum TemplateType {
         this.value = value;
     }
 
+    public String getValue() {
+        return value;
+    }
 
     public static TemplateType getType(Object objectType) {
         String type = String.valueOf(objectType);
