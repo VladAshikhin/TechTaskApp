@@ -10,9 +10,16 @@ import com.app.repository.PresentationRepository;
 import com.app.service.pdfcreators.PdfCreator;
 import com.app.service.pdfcreators.PdfCreatorManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.Map;
 
 @Service
@@ -30,7 +37,8 @@ public class TemplateService {
     @Autowired
     PdfCreatorManager pdfCreatorManager;
 
-    public void processTemplate(Map<String, Object> dataObject) {
+    public ResponseEntity<String> createPdfFromTemplate(Map<String, Object> dataObject) throws IOException {
+
         if (!dataObject.containsKey("type") || !dataObject.containsKey("data")) {
             throw new TemplateProcessingException("Couldn't define Template Type or Data.");
         }
@@ -43,7 +51,23 @@ public class TemplateService {
 
         PdfCreator pdfCreator = pdfCreatorManager.definePdfCreator(template);
 
-        pdfCreator.createPdf(template, type);
+        String fileName = pdfCreator.createPdf(template, type);
+        System.out.println("Filename: " + fileName);
+
+        return prepareResponse(fileName);
+    }
+
+    public ResponseEntity<String> prepareResponse(String filePath) throws IOException {
+
+        File pdf = new File(filePath);
+        byte[] fileBytes = FileUtils.readFileToByteArray(pdf);
+
+        System.out.println("File as ByteArray: " + Arrays.toString(fileBytes));
+
+        ResponseEntity.BodyBuilder res =ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_OCTET_STREAM);
+
+                return res.body(Base64.getEncoder().encodeToString(fileBytes));
     }
 
     private Template defineTypeAndSave(Map<String, String> data, TemplateType type) {

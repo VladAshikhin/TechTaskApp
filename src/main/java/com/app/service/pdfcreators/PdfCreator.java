@@ -18,9 +18,10 @@ public interface PdfCreator {
 
     void populateContent(PDPageContentStream content, Template template);
 
-    default void createPdf(Template template, TemplateType type) {
+    default String createPdf(Template template, TemplateType type) {
         String fontPath = "Inter-Light.ttf";
         String targetDir = "generated_pdf/";
+        String fileName = targetDir.concat(type.getValue().concat("_tech_task.pdf"));
 
         PDDocument document = new PDDocument();
         PDPage page = new PDPage();
@@ -42,10 +43,11 @@ public interface PdfCreator {
             content.endText();
             content.close();
 
-            document.save(targetDir + type.getValue() + "_tech_task.pdf");
+            document.save(fileName);
             document.close();
         } catch (IOException e) {
             throw new TemplateProcessingException("Error occurred while creating PDF. Cause: " + e.getMessage());
         }
+        return fileName;
     }
 }
