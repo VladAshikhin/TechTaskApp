@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Arrays;
 
 @Getter
 @NoArgsConstructor
@@ -25,6 +26,9 @@ public class Banner implements Template {
     @Column(name = "format")
     private String format;
 
+    @Column(name = "file_bytes")
+    private byte[] fileBytes;
+
     @Override
     public String toString() {
         return "Banner{" +
@@ -32,6 +36,7 @@ public class Banner implements Template {
                 ", name='" + name + '\'' +
                 ", size='" + size + '\'' +
                 ", format='" + format + '\'' +
+                ", fileBytes='" + Arrays.toString(fileBytes) + '\'' +
                 '}';
     }
 }

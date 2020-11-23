@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
@@ -55,6 +56,9 @@ public class CorporateStyle implements Template{
     private String examplesReady;
     //private String[] source;
 
+    @Column(name = "file_bytes")
+    private byte[] fileBytes;
+
     @Override
     public String toString() {
         return "CorporateStyle{" +
@@ -71,6 +75,7 @@ public class CorporateStyle implements Template{
                 ", contacts='" + contacts + '\'' +
                 ", examplesReady='" + examplesReady + '\'' +
                 // ", source=" + source +
+                ", fileBytes='" + Arrays.toString(fileBytes) + '\'' +
                 '}';
     }
 

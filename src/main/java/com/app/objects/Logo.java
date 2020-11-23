@@ -5,10 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Arrays;
 
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 @Entity
 @Table(name = "logo")
 public class Logo implements Template {
@@ -26,10 +27,14 @@ public class Logo implements Template {
     @Column(name = "format")
     private String format;
 
-    public Logo(String name, String size, String format) {
+    @Column(name = "file_bytes")
+    private byte[] fileBytes;
+
+    public Logo(String name, String size, String format, byte[] fileBytes) {
         this.name = name;
         this.size = size;
         this.format = format;
+        this.fileBytes = fileBytes;
     }
 
     @Override
@@ -39,6 +44,7 @@ public class Logo implements Template {
                 ", name='" + name + '\'' +
                 ", size='" + size + '\'' +
                 ", format='" + format + '\'' +
+                ", fileBytes='" + Arrays.toString(fileBytes) + '\'' +
                 '}';
     }
 }

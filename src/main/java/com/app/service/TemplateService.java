@@ -44,7 +44,6 @@ public class TemplateService {
         }
 
         TemplateType type = TemplateType.getType(dataObject.get("type"));
-
         Map<String, String> data = (Map<String, String>) dataObject.get("data");
 
         Template template = defineTypeAndSave(data, type);

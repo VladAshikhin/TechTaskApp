@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Arrays;
 
 @Getter
 @NoArgsConstructor
@@ -23,12 +24,16 @@ public class Presentation implements Template {
     @Column(name = "format")
     private String format;
 
+    @Column(name = "file_bytes")
+    private byte[] fileBytes;
+
     @Override
     public String toString() {
         return "Presentation{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", format='" + format + '\'' +
+                ", fileBytes='" + Arrays.toString(fileBytes) + '\'' +
                 '}';
     }
 }

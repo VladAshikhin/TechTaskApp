@@ -80,7 +80,6 @@ function sendJson(json) {
         data: json,
         contentType: "application/json",
         success: function (data) {
-            alert('Success');
 
             var file = base64ToArrayBuffer(data)
             openFile(file)
