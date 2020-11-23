@@ -5,18 +5,18 @@ import com.app.objects.*;
 import com.app.objects.enums.TemplateType;
 import com.app.repository.BannerRepository;
 import com.app.repository.CorporateStyleRepository;
-import com.app.repository.LogoRepository;
 import com.app.repository.PresentationRepository;
-import com.app.service.pdfcreators.PdfCreator;
+import com.app.repository.impl.BannerService;
+import com.app.repository.impl.CorporateStyleService;
+import com.app.repository.impl.LogoService;
+import com.app.repository.impl.PresentationService;
 import com.app.service.pdfcreators.PdfCreatorManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Base64;
@@ -26,13 +26,20 @@ import java.util.Map;
 public class TemplateService {
 
     @Autowired
-    private LogoRepository logoRepository;
-    @Autowired
     private BannerRepository bannerRepository;
     @Autowired
     private PresentationRepository presentationRepository;
     @Autowired
     private CorporateStyleRepository corporateStyleRepository;
+
+    @Autowired
+    private LogoService logoService;
+    @Autowired
+    private BannerService bannerService;
+    @Autowired
+    private PresentationService presentationService;
+    @Autowired
+    private CorporateStyleService corporateStyleService;
 
     @Autowired
     PdfCreatorManager pdfCreatorManager;
@@ -46,55 +53,46 @@ public class TemplateService {
         TemplateType type = TemplateType.getType(dataObject.get("type"));
         Map<String, String> data = (Map<String, String>) dataObject.get("data");
 
-        Template template = defineTypeAndSave(data, type);
-
-        PdfCreator pdfCreator = pdfCreatorManager.definePdfCreator(template);
-
-        String fileName = pdfCreator.createPdf(template, type);
-        System.out.println("Filename: " + fileName);
-
-        return prepareResponse(fileName);
+        byte[] fileBytes = processDataAndSave(data, type);
+        return prepareResponse(fileBytes);
     }
 
-    public ResponseEntity<String> prepareResponse(String filePath) throws IOException {
-
-        File pdf = new File(filePath);
-        byte[] fileBytes = FileUtils.readFileToByteArray(pdf);
+    public ResponseEntity<String> prepareResponse(byte[] fileBytes) {
 
         System.out.println("File as ByteArray: " + Arrays.toString(fileBytes));
 
-        ResponseEntity.BodyBuilder res =ResponseEntity.ok()
+        ResponseEntity.BodyBuilder res = ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_OCTET_STREAM);
 
-                return res.body(Base64.getEncoder().encodeToString(fileBytes));
+        return res.body(Base64.getEncoder().encodeToString(fileBytes));
     }
 
-    private Template defineTypeAndSave(Map<String, String> data, TemplateType type) {
+    private byte[] processDataAndSave(Map<String, String> data, TemplateType type) {
         ObjectMapper mapper = new ObjectMapper();
 
         Template template;
+        byte[] fileBytes;
 
         switch (type) {
             case LOGO:
                 template = mapper.convertValue(data, Logo.class);
-                logoRepository.saveAndFlush((Logo) template);
+                fileBytes = logoService.saveTemplate(template);
                 break;
             case BANNER:
                 template = mapper.convertValue(data, Banner.class);
-                bannerRepository.saveAndFlush((Banner) template);
+                fileBytes = bannerService.saveTemplate(template);
                 break;
             case PRESENTATION:
                 template = mapper.convertValue(data, Presentation.class);
-                presentationRepository.saveAndFlush((Presentation) template);
+                fileBytes = presentationService.saveTemplate(template);
                 break;
             case CORPORATE_STYLE:
                 template = mapper.convertValue(data, CorporateStyle.class);
-                corporateStyleRepository.saveAndFlush((CorporateStyle) template);
+                fileBytes = corporateStyleService.saveTemplate(template);
                 break;
             default:
                 throw new TemplateProcessingException("Undefined template type " + type);
         }
-
-        return template;
+        return fileBytes;
     }
 }

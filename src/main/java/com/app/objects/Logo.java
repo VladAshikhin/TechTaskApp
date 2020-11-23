@@ -37,6 +37,10 @@ public class Logo implements Template {
         this.fileBytes = fileBytes;
     }
 
+    public void setFileBytes(byte[] fileBytes) {
+        this.fileBytes = fileBytes;
+    }
+
     @Override
     public String toString() {
         return "Logo{" +

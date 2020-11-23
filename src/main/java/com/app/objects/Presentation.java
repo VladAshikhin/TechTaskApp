@@ -27,6 +27,10 @@ public class Presentation implements Template {
     @Column(name = "file_bytes")
     private byte[] fileBytes;
 
+    public void setFileBytes(byte[] fileBytes) {
+        this.fileBytes = fileBytes;
+    }
+
     @Override
     public String toString() {
         return "Presentation{" +
