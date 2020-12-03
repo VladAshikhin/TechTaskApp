@@ -1,5 +1,6 @@
-package com.app.repository.impl;
+package com.app.service.templateservices;
 
+import com.app.exceptions.TemplateProcessingException;
 import com.app.objects.Logo;
 import com.app.objects.Template;
 import com.app.objects.enums.TemplateType;
@@ -29,11 +30,11 @@ public class LogoService {
         String filePath = pdfCreator.createPdf(logo, type);
 
         File pdf = new File(filePath);
-        byte[] fileBytes = new byte[0];
+        byte[] fileBytes;
         try {
             fileBytes = FileUtils.readFileToByteArray(pdf);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new TemplateProcessingException("Failed to convert file to byte array. Type " + type);
         }
 
         logo.setFileBytes(fileBytes);

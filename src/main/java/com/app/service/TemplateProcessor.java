@@ -6,10 +6,10 @@ import com.app.objects.enums.TemplateType;
 import com.app.repository.BannerRepository;
 import com.app.repository.CorporateStyleRepository;
 import com.app.repository.PresentationRepository;
-import com.app.repository.impl.BannerService;
-import com.app.repository.impl.CorporateStyleService;
-import com.app.repository.impl.LogoService;
-import com.app.repository.impl.PresentationService;
+import com.app.service.templateservices.BannerService;
+import com.app.service.templateservices.CorporateStyleService;
+import com.app.service.templateservices.LogoService;
+import com.app.service.templateservices.PresentationService;
 import com.app.service.pdfcreators.PdfCreatorManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import java.util.Base64;
 import java.util.Map;
 
 @Service
-public class TemplateService {
+public class TemplateProcessor {
 
     @Autowired
     private BannerRepository bannerRepository;
@@ -44,7 +44,7 @@ public class TemplateService {
     @Autowired
     PdfCreatorManager pdfCreatorManager;
 
-    public ResponseEntity<String> createPdfFromTemplate(Map<String, Object> dataObject) throws IOException {
+    public ResponseEntity<String> processTemplate(Map<String, Object> dataObject) throws IOException {
 
         if (!dataObject.containsKey("type") || !dataObject.containsKey("data")) {
             throw new TemplateProcessingException("Couldn't define Template Type or Data.");
@@ -53,21 +53,11 @@ public class TemplateService {
         TemplateType type = TemplateType.getType(dataObject.get("type"));
         Map<String, String> data = (Map<String, String>) dataObject.get("data");
 
-        byte[] fileBytes = processDataAndSave(data, type);
+        byte[] fileBytes = generatePdfAndSaveTemplate(data, type);
         return prepareResponse(fileBytes);
     }
 
-    public ResponseEntity<String> prepareResponse(byte[] fileBytes) {
-
-        System.out.println("File as ByteArray: " + Arrays.toString(fileBytes));
-
-        ResponseEntity.BodyBuilder res = ResponseEntity.ok()
-                .contentType(MediaType.APPLICATION_OCTET_STREAM);
-
-        return res.body(Base64.getEncoder().encodeToString(fileBytes));
-    }
-
-    private byte[] processDataAndSave(Map<String, String> data, TemplateType type) {
+    private byte[] generatePdfAndSaveTemplate(Map<String, String> data, TemplateType type) {
         ObjectMapper mapper = new ObjectMapper();
 
         Template template;
@@ -94,5 +84,15 @@ public class TemplateService {
                 throw new TemplateProcessingException("Undefined template type " + type);
         }
         return fileBytes;
+    }
+
+    public ResponseEntity<String> prepareResponse(byte[] fileBytes) {
+
+        System.out.println("File as ByteArray: " + Arrays.toString(fileBytes));
+
+        ResponseEntity.BodyBuilder res = ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_OCTET_STREAM);
+
+        return res.body(Base64.getEncoder().encodeToString(fileBytes));
     }
 }

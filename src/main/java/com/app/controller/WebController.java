@@ -1,13 +1,12 @@
 package com.app.controller;
 
 
-import com.app.service.TemplateService;
+import com.app.service.TemplateProcessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,7 +18,7 @@ import java.util.Map;
 public class WebController {
 
     @Autowired
-    TemplateService service;
+    TemplateProcessor service;
 
     @ResponseBody
     public String welcome() {
@@ -34,7 +33,7 @@ public class WebController {
         Map<String, Object> dataObject = mapper.readValue(data, Map.class);
 
         try {
-            return service.createPdfFromTemplate(dataObject);
+            return service.processTemplate(dataObject);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body(HttpStatus.BAD_REQUEST.toString());
