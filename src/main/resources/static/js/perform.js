@@ -1,9 +1,6 @@
 $("#fillData").on("click", function () {
     fillCorporateData();
 })
-$("#logo-fill-data").on("click", function () {
-    fillLogoData();
-})
 $("#banner-fill-data").on("click", function () {
     fillBannerData();
 })
@@ -13,12 +10,6 @@ $("#presentation-fill-data").on("click", function () {
 
 $("#performPdf").on("click", function () {
     let data = getCorporateStyleData()
-    let json = JSON.stringify(data);
-
-    sendJson(json);
-});
-$("#logo-perform-pdf").on("click", function () {
-    let data = getLogoData()
     let json = JSON.stringify(data);
 
     sendJson(json);
@@ -54,12 +45,6 @@ function fillCorporateData() {
     $("#exampleYes").prop('checked', true)
 }
 
-function fillLogoData() {
-    $("#logo-name").val('Логотип-тип');
-    $("#logo-size").val('128x128');
-    $("#logo-format").val('.png');
-}
-
 function fillBannerData() {
     $("#banner-name").val('Баннер-маннер');
     $("#banner-size").val('128x128');
@@ -70,7 +55,6 @@ function fillPresentationData() {
     $("#presentation-name").val('Презентация-канализация');
     $("#presentation-format").val('.ppt');
 }
-
 
 function sendJson(json) {
 
@@ -148,24 +132,6 @@ function getCorporateStyleData() {
     }
 }
 
-function getLogoData() {
-    let type = "logo"
-
-    let name = $("#logo-name").val();
-    let size = $("#logo-size").val();
-    let format = $("#logo-format").val();
-
-    return {
-        "type": type,
-        "data":
-            {
-                "name": name,
-                "size": size,
-                "format": format
-            }
-    }
-}
-
 function getBannerData() {
     let type = "banner"
 
@@ -209,22 +175,6 @@ function getRadioButtonValueByName(elementName) {
         }
     }
 }
-
-// Field to be added later
-/*function getSource() {
-    console.log("Enter getSource")
-    let checks = document.getElementsByName('source');
-
-    let values = [];
-
-    for (var i = 0, length = checks.length; i < length; i++) {
-        if (checks[i].checked) {
-            values.push(checks[i].value);
-        }
-    }
-
-    console.log("Values " + values)
-}*/
 
 function setDeadline() {
 

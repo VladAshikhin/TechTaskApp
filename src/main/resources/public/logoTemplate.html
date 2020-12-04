@@ -23,7 +23,7 @@
 <input type="text" id="business-details" class="data business-details" placeholder="Печать широкоформатных баннеров" size="40">
 
 <p>Какая сильная сторона Вашей компании и продукта?</p>
-<input type="text" id="company-strength" class="data company-strength" placeholder="Уникальный продукт на рынке. Большая клиентская база по всему СНГ" size="40">
+<input type="text" id="strong-points" class="data strong-points" placeholder="Уникальный продукт на рынке. Большая клиентская база по всему СНГ" size="40">
 
 <p>Если Вы знаете, укажите основных конкурентов</p>
 <input type="text" id="opponents" class="data opponents" placeholder="company-analogue.com; small-company.com" size="40">
@@ -38,29 +38,30 @@
 <p>Есть ли уже логотип и требуется ли использование его идеи при разработке нового логотипа?</p>
 <input type="text" id="logo_exists" class="data logo_exists" placeholder="Есть прототип, прошу использовать при создании логотипа" size="40">
 
-
 <p>Желаемая стилистика логотипа</p>
-<p><input type="checkbox" name="style" value="Minimalism">Минимализм</p>
-<p><input type="checkbox" name="style" value="Font_writing">Шрифтовое написание</p>
-<p><input type="checkbox" name="style" value="Elegant">Изящный</p>
-<p><input type="checkbox" name="style" value="Pseudo_emblem">Псевдогербовый</p>
-<p><input type="checkbox" name="style" value="Cubism">Кубизм, мозаика</p>
-<p><input type="checkbox" name="style" value="Retro">Ретро, винтаж</p>
+<p><input type="checkbox" name="style" id="minimalism" value="Minimalism">Минимализм</p>
+<p><input type="checkbox" name="style" id="font-writing" value="Font_writing">Шрифтовое написание</p>
+<p><input type="checkbox" name="style" id="elegant" value="Elegant">Изящный</p>
+<p><input type="checkbox" name="style" id="emblem" value="Pseudo_emblem">Псевдогербовый</p>
+<p><input type="checkbox" name="style" id="cubism" value="Cubism">Кубизм, мозаика</p>
+<p><input type="checkbox" name="style" id="retro" value="Retro">Ретро, винтаж</p>
 <p><input type="checkbox" name="style" value="Other">Другое</p>
 <input type="text" id="style_other" class="data style_other" placeholder="Стилистика логотипа" style="display:block" size="40">
 
 <h2>Предпочтения по шрифтам текстовой информации</h2>
-<p><input type="radio" name="example" value="no">С засечками</p>
-<p><input type="radio" name="example" value="no">Рубленый без засечек</p>
-<p><input type="radio" name="example" value="no">Декоративный</p>
-<p><input type="radio" name="example" value="no">Рукописный</p>
-<p><input type="radio" name="example" value="no">Каллиграфия, леттеринг</p>
-<p><input type="radio" name="example" value="no">Готический</p>
-<p><input type="radio" name="example" value="no">Старославянский</p>
-<p><input type="radio" name="example" value="no">Другое</p>
+<p><input type="radio" name="font-pref" value="0">С засечками</p>
+<p><input type="radio" name="font-pref" value="1">Рубленый без засечек</p>
+<p><input type="radio" name="font-pref" value="2">Декоративный</p>
+<p><input type="radio" name="font-pref" value="3">Рукописный</p>
+<p><input type="radio" name="font-pref" value="4">Каллиграфия, леттеринг</p>
+<p><input type="radio" name="font-pref" id="goth" value="5">Готический</p>
+<p><input type="radio" name="font-pref" value="6">Старославянский</p>
+<p><input type="radio" name="font-pref" value="7">Другое</p>
+<input type="text" id="font_other" class="data font_other" placeholder="Предпочтения по шрифтам" style="display:block" size="40">
 
 
-<script type="text/javascript" src="/js/perform.js"></script>
+
+<script type="text/javascript" src="/js/logoPerform.js"></script>
 
 <script>
     function redirectToChooseTemplate() {

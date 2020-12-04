@@ -18,9 +18,9 @@ public class LogoPdfCreator implements PdfCreator {
         try {
             c.showText("Название логотипа: " + logoTemplate.getName());
             c.newLine();
-            c.showText("Размер логотипа: " + logoTemplate.getSize());
+           // c.showText("Размер логотипа: " + logoTemplate.getSize());
             c.newLine();
-            c.showText("Формат логотипа: " + logoTemplate.getFormat());
+            //c.showText("Формат логотипа: " + logoTemplate.getFormat());
             c.newLine();
         } catch (IOException e) {
             throw new TemplateProcessingException("Error occurred while populating PDF content. Cause: " + e.getMessage());
