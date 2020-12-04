@@ -1,18 +1,13 @@
 package com.app.service.templateservices;
 
-import com.app.exceptions.TemplateProcessingException;
 import com.app.objects.Logo;
 import com.app.objects.Template;
 import com.app.objects.enums.TemplateType;
 import com.app.repository.LogoRepository;
 import com.app.service.pdfcreators.PdfCreator;
 import com.app.service.pdfcreators.PdfCreatorManager;
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.io.File;
-import java.io.IOException;
 
 @Service
 public class LogoService {
@@ -24,23 +19,13 @@ public class LogoService {
 
     public byte[] saveTemplate(Template template) {
         Logo logo = (Logo) template;
-        TemplateType type = TemplateType.LOGO;
 
-        PdfCreator pdfCreator = pdfCreatorManager.definePdfCreator(type);
-        String filePath = pdfCreator.createPdf(logo, type);
+        PdfCreator pdfCreator = pdfCreatorManager.definePdfCreator(TemplateType.LOGO);
+        byte[] byteArray = pdfCreator.createPdf(logo);
 
-        File pdf = new File(filePath);
-        byte[] fileBytes;
-        try {
-            fileBytes = FileUtils.readFileToByteArray(pdf);
-        } catch (IOException e) {
-            throw new TemplateProcessingException("Failed to convert file to byte array. Type " + type);
-        }
-
-        logo.setFileBytes(fileBytes);
-
+        logo.setFileBytes(byteArray);
         logoRepository.saveAndFlush(logo);
 
-        return fileBytes;
+        return byteArray;
     }
 }

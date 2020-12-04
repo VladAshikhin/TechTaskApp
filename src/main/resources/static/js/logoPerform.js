@@ -32,10 +32,8 @@ function sendJson(json) {
         contentType: "application/json",
         success: function (data) {
 
-            alert('Success!')
-
-           /* var file = base64ToArrayBuffer(data)
-            openFile(file)*/
+            var file = base64ToArrayBuffer(data)
+            openFile(file)
 
         },
         error: function (e) {

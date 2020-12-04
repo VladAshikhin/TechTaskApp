@@ -2,7 +2,6 @@ package com.app.service.pdfcreators;
 
 import com.app.exceptions.TemplateProcessingException;
 import com.app.objects.Template;
-import com.app.objects.enums.TemplateType;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -10,6 +9,7 @@ import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
@@ -18,10 +18,9 @@ public interface PdfCreator {
 
     void populateContent(PDPageContentStream content, Template template);
 
-    default String createPdf(Template template, TemplateType type) {
+    default byte[] createPdf(Template template) {
         String fontPath = "Inter-Light.ttf";
-        String targetDir = "generated_pdf/";
-        String fileName = targetDir.concat(type.getValue().concat("_tech_task.pdf"));
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
         PDDocument document = new PDDocument();
         PDPage page = new PDPage();
@@ -43,11 +42,12 @@ public interface PdfCreator {
             content.endText();
             content.close();
 
-            document.save(fileName);
+
+            document.save(baos);
             document.close();
         } catch (IOException e) {
             throw new TemplateProcessingException("Error occurred while creating PDF. Cause: " + e.getMessage());
         }
-        return fileName;
+        return baos.toByteArray();
     }
 }

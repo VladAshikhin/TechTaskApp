@@ -4,6 +4,7 @@ import com.app.objects.CorporateStyle;
 import com.app.objects.Logo;
 import com.app.repository.CorporateStyleRepository;
 import com.app.repository.LogoRepository;
+import javassist.bytecode.ByteArray;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Test;
@@ -37,15 +38,10 @@ public class TestRepo {
 
     @Test
     public void testReturnNotEmptyTableWhenEntryAdded() throws IOException {
-        File pdf = new File("tech_task_eng.pdf");
-        byte[] fileBytes = FileUtils.readFileToByteArray(pdf);
-
-        Logo entry = new Logo("LogoEntry", "100x200", ".jpd", fileBytes);
-
+        Logo entry = new Logo();
         logoRepository.saveAndFlush(entry);
 
         List<Logo> logos = logoRepository.findAll();
-
         Assert.assertNotNull(logos);
     }
 }
